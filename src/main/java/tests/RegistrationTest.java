@@ -5,15 +5,27 @@ import org.testng.annotations.Test;
 
 public class RegistrationTest extends BaseTest{
 
-    @Test(priority = 0)
-    public void LoginTest() {
+    @Test(priority = 1)
+    public void NavigatetoRegistrationPageTest() {
 
         //*************PAGE INSTANTIATIONS*************
         HomePage homePage = new HomePage(driver);
 
         //*************PAGE METHODS********************
         homePage.goToinMD()
-                .loginToinMD("sergey","123456");
-
+                .goToSignUpPage();
     }
+
+    @Test (priority = 1)
+    public void StudentRegistration () {
+        //*************PAGE INSTANTIATIONS*************
+        HomePage homePage = new HomePage(driver);
+
+        //*************PAGE METHODS********************
+        homePage.goToinMD()
+                .goToSignUpPage()
+                .selectRegistrationUser("student");
+    }
+
+
 }
