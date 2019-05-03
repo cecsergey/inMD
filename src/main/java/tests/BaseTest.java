@@ -8,12 +8,23 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 public abstract class BaseTest {
+
+    String os = System.getProperty("os.name").toLowerCase();
+
     public WebDriver driver;
 
     private void makeChromeDriver(){
         //Create a Chrome driver. All test classes use this.
-        System.setProperty("webdriver.chrome.driver", Properties.seleniumDriversPath + "chromedriver.exe");
-        driver = new ChromeDriver();
+       if(os.contains("windows")) {
+           System.setProperty("webdriver.chrome.driver", Properties.seleniumDriversPath + "chromedriver.exe");
+           driver = new ChromeDriver();
+       }else if(os.contains("mac")){
+           System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver");
+           driver = new ChromeDriver();
+       }else{
+           System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\chromedriver.exe");
+
+       }
     }
 
     private void makeFirefoxDriver(){
@@ -24,7 +35,7 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void setup () {
-        makeFirefoxDriver();
+        makeChromeDriver();
         //Maximize Window
         driver.manage().window().maximize();
     }
