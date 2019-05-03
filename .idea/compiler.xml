@@ -9,5 +9,8 @@
         <module name="inMD" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="inMD" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

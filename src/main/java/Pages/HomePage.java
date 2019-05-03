@@ -1,5 +1,6 @@
 package Pages;
 
+import Utils.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -7,25 +8,23 @@ public class HomePage extends BasePage{
 
     //*********Constructor*********
     public HomePage (WebDriver driver) {
-
         super(driver);
     }
 
     //*********Page Variables*********
-    String baseURL = "https://inmdstage.breezio.com/";
 
     //*********Web Elements*********
-    By signInButtonBy = By.id("btn-signin");
-    By signUpButtonBy = By.id("btn-signup");
-    By usernameBy = By.id("popup-user_name");
-    By passwordBy = By.id("popup-password");
-    By loginButtonBy = By.xpath("//button[text()='GO']");
+    final By signInButtonBy = By.id("btn-signin");
+    final By signUpButtonBy = By.id("btn-signup");
+    final By usernameBy = By.id("popup-user_name");
+    final By passwordBy = By.id("popup-password");
+    final By loginButtonBy = By.xpath("//button[text()='GO']");
 
 
     //*********Page Methods*********
     //Go to Homepage
     public HomePage goToinMD (){
-        driver.get(baseURL);
+        driver.get(Properties.baseURL);
         return this;
     }
 
