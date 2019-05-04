@@ -36,7 +36,7 @@ public class RegistrationPage extends BasePage{
         Random rand = new Random();
         int n = rand.nextInt(500);
 
-        StudentRegistrationData regData = new StudentRegistrationData(n,userType);
+        UserRegistrationData regData = new UserRegistrationData(n,userType);
 
         writeText(firstNameBy, regData.firstName);
         writeText(lastNameBy, regData.lastName);
@@ -46,10 +46,9 @@ public class RegistrationPage extends BasePage{
         writeText(passwordConfirmationBy, regData.password);
         click(createAccountButtonBy);
         return new SuccessPage(driver);
-
     }
 
-    class StudentRegistrationData{
+    class UserRegistrationData{
 
         String firstName;
         String lastName;
@@ -57,7 +56,7 @@ public class RegistrationPage extends BasePage{
         String userName;
         String password;
 
-        private StudentRegistrationData(final int extension,final String user) {
+        private UserRegistrationData(final int extension,final String user) {
             this.firstName = user + extension + "F";
             this.lastName = user + extension + "L";
             this.emailAddress = user + extension + "@mailinator.com";

@@ -37,6 +37,25 @@ public class RegistrationTest extends BaseTest{
 
         successPage.verifySuccessMessage(successMessage);
 
+    }
+
+    @Test (priority = 1)
+    public void CompanyRegistration () throws InterruptedException {
+        //*************PAGE INSTANTIATIONS*************
+        HomePage homePage = new HomePage(driver);
+
+        //*************PAGE METHODS********************
+        homePage.goToinMD()
+                .goToSignUpPage();
+        RegistrationPage registrationPage = new RegistrationPage(driver);
+        SuccessPage successPage = new SuccessPage(driver);
+
+        registrationPage
+                .selectRegistrationUser("company")
+                .submitStudentRegistrationForm("company");
+
+        successPage.verifySuccessMessage(successMessage);
+
         Thread.sleep(5000);
 
     }
