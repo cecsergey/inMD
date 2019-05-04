@@ -12,14 +12,15 @@ public class RegistrationPage extends BasePage{
     }
 
     //*********Web Elements*********
-    final By registerStudetnButtonBy = By.xpath("//a[text()=\"Register as student*\"]");
-    final By registerCompanyButtonBy = By.xpath("//a[text()=\"Register as company*\"]");
+    final By registerStudetnButtonBy = By.xpath("//a[text()='Register as student*']");
+    final By registerCompanyButtonBy = By.xpath("//a[text()='Register as company*']");
     final By firstNameBy = By.id("first_name");
     final By lastNameBy = By.id("last_name");
     final By emailBy = By.id("email");
     final By userNameBy = By.id("user_name");
     final By passwordBy = By.id("password");
     final By passwordConfirmationBy = By.id("password_confirmation");
+    final By createAccountButtonBy = By.xpath("//button[text()='Create Account']");
 
     //*********Page Methods*********
     public RegistrationPage selectRegistrationUser(String usertype){
@@ -31,10 +32,11 @@ public class RegistrationPage extends BasePage{
         return this;
     }
 
-    public void fillStudentRegistrationFields() {
+    public SuccessPage submitStudentRegistrationForm(String userType) {
         Random rand = new Random();
         int n = rand.nextInt(500);
-        StudentRegistrationData regData = new StudentRegistrationData(n);
+
+        StudentRegistrationData regData = new StudentRegistrationData(n,userType);
 
         writeText(firstNameBy, regData.firstName);
         writeText(lastNameBy, regData.lastName);
@@ -42,6 +44,9 @@ public class RegistrationPage extends BasePage{
         writeText(userNameBy, regData.userName);
         writeText(passwordBy, regData.password);
         writeText(passwordConfirmationBy, regData.password);
+        click(createAccountButtonBy);
+        return new SuccessPage(driver);
+
     }
 
     class StudentRegistrationData{
@@ -52,15 +57,14 @@ public class RegistrationPage extends BasePage{
         String userName;
         String password;
 
-        private StudentRegistrationData(final int extension) {
-            this.firstName = "Student" + extension + "F";
-            this.lastName = "Student" + extension + "L";
-            this.emailAddress = "student" + extension + "@mailinator.com";
-            this.userName = "student" + extension;
+        private StudentRegistrationData(final int extension,final String user) {
+            this.firstName = user + extension + "F";
+            this.lastName = user + extension + "L";
+            this.emailAddress = user + extension + "@mailinator.com";
+            this.userName = user + extension;
             this.password = "123456";
         }
     }
-
 
 
 }
