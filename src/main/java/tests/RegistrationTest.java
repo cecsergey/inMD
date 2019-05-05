@@ -57,7 +57,6 @@ public class RegistrationTest extends BaseTest{
         successPage.verifySuccessMessage(successMessage);
 
         Thread.sleep(5000);
-
     }
 
 }
