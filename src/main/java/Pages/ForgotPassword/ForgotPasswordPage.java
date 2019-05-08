@@ -18,30 +18,27 @@ public class ForgotPasswordPage extends BasePage {
 
     //*********Web Elements*********
     final By emailBy= By.id("email");
-    final By submitButtonBy= By.cssSelector("button[type=\"submit\"]");
+    final By submitButtonBy= By.cssSelector("div[class=\"login-content\"] button[type=\"submit\"]");
     final By errorBy= By.cssSelector("div[role=\"alert\"]"); // Error message if invalid username/email specified
-
-    public ForgotPasswordPage invalidUsername(){
-        click(emailBy);
-        writeText(emailBy, "Garbage");
-        click(submitButtonBy);
-        assertVisible(errorBy);
-        return this;
-    }
-
-    public ForgotPasswordPage emptyUsername(){
-        driver.get(Properties.baseURL + "auth/forgot-password/");
-        click(submitButtonBy);
-        assertVisible(errorBy);
-        return this;
-    }
 
     public CheckYourEmailPage validUsername(final String username){
         driver.get(Properties.baseURL + "auth/forgot-password/");
         click(emailBy);
         writeText(emailBy, username);
         click(submitButtonBy);
-        assertInvisible(errorBy);
         return new CheckYourEmailPage(driver);
+    }
+
+    public ForgotPasswordPage invalidUsername(final String invalidUsername) {
+        driver.get(Properties.baseURL + "auth/forgot-password/");
+        click(emailBy);
+        writeText(emailBy, invalidUsername);
+        click(submitButtonBy);
+        return this;
+    }
+
+    public ForgotPasswordPage VerifyErrorMessage() {
+        assertVisible(errorBy);
+        return this;
     }
 }
