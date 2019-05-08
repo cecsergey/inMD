@@ -38,7 +38,7 @@ public class RegistrationPage extends BasePage{
         return this;
     }
 
-    public SuccessPage submitStudentRegistrationForm(String userType) {
+    public SuccessPage submitRegistrationForm(String userType) {
         Random rand = new Random();
         int n = rand.nextInt(500);
 
@@ -65,8 +65,10 @@ public class RegistrationPage extends BasePage{
         }else{
             System.out.println("wrong user type");
         }
-
-
+        System.out.println("**********");
+        System.out.println("Created a new " + userType + " - " + regData.emailAddress);
+        System.out.println("*** To complete registration confirm email ***");
+        System.out.println("**********");
         return new SuccessPage(driver);
     }
 
