@@ -8,6 +8,7 @@ public class HomePage extends BasePage{
 
     //*********Constructor*********
     public HomePage (WebDriver driver) {
+
         super(driver);
     }
 
@@ -19,6 +20,7 @@ public class HomePage extends BasePage{
     final By usernameBy = By.id("popup-user_name");
     final By passwordBy = By.id("popup-password");
     final By loginButtonBy = By.xpath("//button[text()='GO']");
+    final By logoutButtonBy = By.xpath("//ul[@class='dropdown-menu show']//a[text()='Logout']");
 
 
     //*********Page Methods*********
