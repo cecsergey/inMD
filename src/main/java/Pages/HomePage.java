@@ -1,5 +1,6 @@
 package Pages;
 
+import Pages.ForgotPassword.ForgotPasswordPage;
 import Utils.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,11 +15,11 @@ public class HomePage extends BasePage{
     //*********Page Variables*********
 
     //*********Web Elements*********
-    final By signInButtonBy = By.id("btn-signin");
-    final By signUpButtonBy = By.id("btn-signup");
-    final By usernameBy = By.id("popup-user_name");
-    final By passwordBy = By.id("popup-password");
-    final By loginButtonBy = By.xpath("//button[text()='GO']");
+    private final By signInButtonBy = By.id("btn-signin");
+    private final By signUpButtonBy = By.id("btn-signup");
+    private final By usernameBy = By.id("popup-user_name");
+    private final By passwordBy = By.id("popup-password");
+    private final By loginButtonBy = By.xpath("//button[text()='GO']");
 
 
     //*********Page Methods*********

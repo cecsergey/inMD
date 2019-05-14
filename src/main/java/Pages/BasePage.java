@@ -53,7 +53,6 @@ public class BasePage {
     }
 
     public void assertInvisible (By elementBy) {
-        waitVisibility(elementBy);
         Assert.assertFalse(driver.findElement(elementBy).isDisplayed());
     }
 }
