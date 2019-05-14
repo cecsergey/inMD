@@ -9,7 +9,7 @@ public class RegistrationTest extends BaseTest{
 
     private String successMessage="Success";
 
-    @Test(priority = 1)
+    @Test(priority = 2)
     public RegistrationPage NavigateToRegistrationPage() {
 
         //*************PAGE INSTANTIATIONS*************
@@ -20,12 +20,12 @@ public class RegistrationTest extends BaseTest{
                         .goToSignUpPage();
     }
 
-    @Test (priority = 1)
+    @Test (priority = 2)
     public void StudentRegistration () throws InterruptedException {
         RegisterUser("student");
     }
 
-    @Test (priority = 1)
+    @Test (priority = 2)
     public void CompanyRegistration () throws InterruptedException {
         RegisterUser("company");
     }

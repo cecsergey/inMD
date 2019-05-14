@@ -12,7 +12,7 @@ public class ForgotPasswordTest extends BaseTest{
     private String successMessage="Success";
 
 
-    @Test
+    @Test(priority = 2)
     public void Invalid_EmptyUsername () {
         ForgotPasswordPage forgotPasswordPage  = new ForgotPasswordPage(driver);
 
@@ -20,7 +20,7 @@ public class ForgotPasswordTest extends BaseTest{
         forgotPasswordPage.VerifyErrorMessage();
     }
 
-    @Test
+    @Test(priority = 2)
     public void Invalid_NonExistUsername () {
         ForgotPasswordPage forgotPasswordPage  = new ForgotPasswordPage(driver);
 
@@ -28,7 +28,7 @@ public class ForgotPasswordTest extends BaseTest{
         forgotPasswordPage.VerifyErrorMessage();
     }
 
-    @Test
+    @Test(priority = 2)
     public void Valid_ClickDone () {
         ForgotPasswordPage forgotPasswordPage  = new ForgotPasswordPage(driver);
 
@@ -36,7 +36,7 @@ public class ForgotPasswordTest extends BaseTest{
         check.clickDoneButton();
     }
 
-    @Test
+    @Test(priority = 2)
     public void Valid_ClickStartOver () {
         ForgotPasswordPage forgotPasswordPage  = new ForgotPasswordPage(driver);
 
