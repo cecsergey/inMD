@@ -6,12 +6,14 @@ import org.testng.annotations.Test;
 
 
 public class LogoutTest extends BaseTestwithLogin{
-    @Test(priority = 0)
+    @Test(priority = 3)
     public void LogoutTest() {
 
 //        //*************PAGE INSTANTIATIONS*************
 //        HomePage homePage = new HomePage(driver);
         UserActivityDDL userActivityDDL = new UserActivityDDL(driver);
+        logger = extent.createTest("To verify that logout works successfully");
+
 //
 //        //*************PAGE METHODS********************
 //        homePage.goToinMD()

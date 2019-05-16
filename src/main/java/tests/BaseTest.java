@@ -1,9 +1,17 @@
 package tests;
 
 import Utils.Properties;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 public abstract class BaseTest {
@@ -11,6 +19,9 @@ public abstract class BaseTest {
     String os = System.getProperty("os.name").toLowerCase();
 
     public WebDriver driver;
+    public ExtentHtmlReporter htmlReporter;
+    public ExtentReports extent;
+    public ExtentTest logger;
 
     private void makeChromeDriver(){
         //Create a Chrome driver. All test classes use this.
@@ -32,48 +43,66 @@ public abstract class BaseTest {
         driver = new FirefoxDriver();
     }
 
+
+
+    @BeforeSuite
+    public void beforeSuite () {
+
+        System.out.println(("Starting test Suite"));
+    }
+
+    @BeforeTest
+    public void startReport() {
+        htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/inMDExtentReport.html");
+        // Create an object of Extent Reports
+        extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
+        extent.setSystemInfo("Host Name", "inMD stage");
+        extent.setSystemInfo("Environment", "Stage");
+        extent.setSystemInfo("User Name", "QA team");
+        System.out.println(("Starting test"));
+        htmlReporter.config().setDocumentTitle("Report file for inMD regression testing ");
+        // Name of the report
+        htmlReporter.config().setReportName("Regression test report ");
+        // Dark Theme
+        htmlReporter.config().setTheme(Theme.DARK);
+    }
+
     @BeforeClass
     public void setup () {
         System.out.println(("Open chrome browser"));
+
+    }
+    @BeforeMethod
+    public void beforeMethod() {
+        System.out.println(("Starting method without login"));
         makeChromeDriver();
         //Maximize Window
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
+
+    }
+
+    @AfterMethod
+    public void afterMethod(){
+        driver.quit();
+        System.out.println(("Finishing method"));
     }
 
     @AfterClass
     public void teardown () {
         System.out.println(("Close chrome browser"));
-        driver.quit();
+        if (driver != null)
+            driver.quit();
     }
 
-    @BeforeSuite
-    public void beforeSuite () {
-        System.out.println(("Starting test Suite"));
+    @AfterTest
+    public void endReport() {
+        extent.flush();
+        System.out.println(("Finishing test"));
     }
 
     @AfterSuite
     public void afterSuite () {
         System.out.println(("Finishing test Suite"));
-    }
-
-    @BeforeTest
-    public void beforeTest() {
-        System.out.println(("Starting test"));
-    }
-
-    @AfterTest
-    public void afterTest() {
-        System.out.println(("Finishing test"));
-    }
-
-    @BeforeMethod
-    public void beforeMethod() {
-        System.out.println(("Starting method without login"));
-
-    }
-
-    @AfterMethod
-    public void afterMethod() {
-        System.out.println(("Finishing method"));
     }
 }

@@ -15,7 +15,7 @@ public class ForgotPasswordTest extends BaseTest{
     @Test(priority = 2)
     public void Invalid_EmptyUsername () {
         ForgotPasswordPage forgotPasswordPage  = new ForgotPasswordPage(driver);
-
+        logger = extent.createTest("To verify invalid_emptyUsername");
         forgotPasswordPage.invalidUsername("");
         forgotPasswordPage.VerifyErrorMessage();
     }
@@ -23,7 +23,7 @@ public class ForgotPasswordTest extends BaseTest{
     @Test(priority = 2)
     public void Invalid_NonExistUsername () {
         ForgotPasswordPage forgotPasswordPage  = new ForgotPasswordPage(driver);
-
+        logger = extent.createTest("To verify that non exist user");
         forgotPasswordPage.invalidUsername("tralala");
         forgotPasswordPage.VerifyErrorMessage();
     }
@@ -31,7 +31,7 @@ public class ForgotPasswordTest extends BaseTest{
     @Test(priority = 2)
     public void Valid_ClickDone () {
         ForgotPasswordPage forgotPasswordPage  = new ForgotPasswordPage(driver);
-
+        logger = extent.createTest("To verify that valid click done");
         CheckYourEmailPage check = forgotPasswordPage.validUsername("student2@mailinator.com");
         check.clickDoneButton();
     }
@@ -39,7 +39,7 @@ public class ForgotPasswordTest extends BaseTest{
     @Test(priority = 2)
     public void Valid_ClickStartOver () {
         ForgotPasswordPage forgotPasswordPage  = new ForgotPasswordPage(driver);
-
+        logger = extent.createTest("To verify that valid click start over");
         CheckYourEmailPage check = forgotPasswordPage.validUsername("student2@mailinator.com");
         check.clickStartOverButton();
     }

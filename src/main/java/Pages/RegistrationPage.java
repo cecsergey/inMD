@@ -40,7 +40,7 @@ public class RegistrationPage extends BasePage{
 
     public SuccessPage submitRegistrationForm(String userType) {
         Random rand = new Random();
-        int n = rand.nextInt(500);
+        int n = rand.nextInt(5000);
 
         UserRegistrationData regData = new UserRegistrationData(n,userType);
         if(userType.equals("student")){
