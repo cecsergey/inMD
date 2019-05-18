@@ -12,8 +12,9 @@ public class LoginTest extends BaseTest {
 
         //*************PAGE INSTANTIATIONS*************
         HomePage homePage = new HomePage(driver);
+        //extent.createTest("To verify that login works successfully")
         extent.createTest("To verify that login works successfully")
-              .pass("details");;
+              .pass("login successfull");;
 
 
         //*************PAGE METHODS********************

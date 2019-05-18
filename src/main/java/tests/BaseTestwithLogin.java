@@ -50,21 +50,21 @@ public class BaseTestwithLogin {
     }
 
     @BeforeTest
-    public void startReportSecond() {
-        htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/inMDExtentReport.html");
-        // Create an object of Extent Reports
-        extent = new ExtentReports();
-        extent.attachReporter(htmlReporter);
-        extent.setSystemInfo("Host Name", "inMD stage");
-        extent.setSystemInfo("Environment", "Stage");
-        extent.setSystemInfo("User Name", "QA team");
-        System.out.println(("Starting test"));
-        htmlReporter.config().setDocumentTitle("Report file for inMD regression testing ");
-        // Name of the report
-        htmlReporter.config().setReportName("Regression test report ");
-        // Dark Theme
-        htmlReporter.config().setTheme(Theme.DARK);
-    }
+//    public void startReportSecond() {
+//        htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/inMDExtentReport.html");
+//        // Create an object of Extent Reports
+//        extent = new ExtentReports();
+//        extent.attachReporter(htmlReporter);
+//        extent.setSystemInfo("Host Name", "inMD stage");
+//        extent.setSystemInfo("Environment", "Stage");
+//        extent.setSystemInfo("User Name", "QA team");
+//        System.out.println(("Starting test"));
+//        htmlReporter.config().setDocumentTitle("Report file for inMD regression testing ");
+//        // Name of the report
+//        htmlReporter.config().setReportName("Regression test report ");
+//        // Dark Theme
+//        htmlReporter.config().setTheme(Theme.DARK);
+//    }
 
     @BeforeClass
     public void setup () {
@@ -117,7 +117,7 @@ public class BaseTestwithLogin {
 
     @AfterTest
     public void endReport() {
-      extent.flush();
+      //extent.flush();
         System.out.println(("Finishing test"));
     }
 

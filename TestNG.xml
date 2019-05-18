@@ -5,8 +5,9 @@
         <classes>
             <class name="tests.LoginTest"/>
             <class name="tests.RegistrationTest"/>
-            <class name="tests.LogoutTest"/>
             <class name="tests.ForgotPasswordTest"/>
+            <class name="tests.LogoutTest"/>
+
         </classes>
     </test>
 </suite>
