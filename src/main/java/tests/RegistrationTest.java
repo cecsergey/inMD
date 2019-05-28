@@ -9,24 +9,31 @@ public class RegistrationTest extends BaseTest{
 
     private String successMessage="Success";
 
-    @Test(priority = 2)
-    public RegistrationPage NavigateToRegistrationPage() {
+    @Test(priority = 1)
+    public void NavigateToRegistrationPage() {
 
         //*************PAGE INSTANTIATIONS*************
         HomePage homePage = new HomePage(driver);
-
+        //logger = extent.createTest("To verify that you can navigate to registration page successfull");
+         //extent.createTest("To verify that you can navigate to registration page successfull");
         //*************PAGE METHODS********************
-        return homePage.goToinMD()
+        homePage.goToinMD()
                         .goToSignUpPage();
     }
 
-    @Test (priority = 2)
+    @Test (priority = 1)
     public void StudentRegistration () throws InterruptedException {
-        RegisterUser("student");
+        //logger = extent.createTest("To verify that student registration works successfully");
+        //extent.createTest("To verify that student registration works successfully");
+        //logger.createNode("Registration is Successful");
+         RegisterUser("student");
+
     }
 
-    @Test (priority = 2)
+    @Test (priority = 1)
     public void CompanyRegistration () throws InterruptedException {
+        //logger = extent.createTest("To verify that company registration works successfully");
+       // extent.createTest("To verify that company registration works successfully");
         RegisterUser("company");
     }
 
@@ -36,7 +43,8 @@ public class RegistrationTest extends BaseTest{
                 .goToSignUpPage();
         SuccessPage successPage =  registrationPage.selectRegistrationUser(userType)
                 .submitRegistrationForm(userType);
+        //logger.createNode("Registration is Successful");
         successPage.verifySuccessMessage(successMessage);
-        Thread.sleep(2500);
+        //Thread.sleep(2500);
     }
 }

@@ -12,10 +12,16 @@ public class LoginTest extends BaseTest {
 
         //*************PAGE INSTANTIATIONS*************
         HomePage homePage = new HomePage(driver);
+        //extent.createTest("To verify that login works successfully")
+        //extent.createTest("To verify that login works successfully")
+          //    .pass("login successfull");
+
 
         //*************PAGE METHODS********************
         homePage.goToinMD()
                 .loginToinMD("sergey","123456");
+
+
 
     }
 }
