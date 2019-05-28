@@ -1,9 +1,13 @@
 #ignore folders
-idea/
 target/
 Screenshots/
+test-output/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
 # Compiled class file
 *.class
-
-*.iml
