@@ -15,7 +15,7 @@ public class UserActivityDDL extends BasePage {
     final By UserProfileLinkBy = By.cssSelector(" li a img");
 
 
-    public UserActivityDDL logoutFrominMD(){
+    public UserActivityDDL logoutFrominMD()throws Exception{
         //Open user Activity drop down list
         click(UserProfileLinkBy);
         //Click Logout Button

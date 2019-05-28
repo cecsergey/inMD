@@ -3,17 +3,22 @@ package tests;
 import Utils.Properties;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 import org.testng.annotations.AfterMethod;
@@ -27,11 +32,11 @@ import org.testng.annotations.BeforeSuite;
 
 public abstract class BaseTest {
 
-    String os = System.getProperty("os.name").toLowerCase();
+    static String os = System.getProperty("os.name").toLowerCase();
 
-    public WebDriver driver;
+    public static WebDriver driver;
 
-    public ExtentTest logger;
+    //public ExtentTest logger;
 
 
     public static ExtentReports extent;
@@ -44,8 +49,8 @@ public abstract class BaseTest {
     @BeforeSuite
     public void beforeSuite() {
         extent = ExtentManager.createInstance("extent.html");
-        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("extent.html");
-        extent.attachReporter(htmlReporter);
+        //ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("extent.html");
+        //extent.attachReporter(htmlReporter);
         System.out.println(("Starting test Suite"));
     }
 
@@ -57,8 +62,8 @@ public abstract class BaseTest {
     @BeforeClass
     public synchronized void beforeClass() {
         System.out.println(("Open chrome browser"));
-        //ExtentTest parent = extent.createTest(getClass().getName());
-        //parentTest.set(parent);
+        ExtentTest parent = extent.createTest(getClass().getName());
+        parentTest.set(parent);
     }
 
     @BeforeMethod
@@ -67,18 +72,26 @@ public abstract class BaseTest {
         makeChromeDriver();
         //Maximize Window
         driver.manage().window().maximize();
-        //ExtentTest child = parentTest.get().createNode(method.getName());
-        //test.set(child);
+        ExtentTest child = parentTest.get().createNode(method.getName());
+        test.set(child);
     }
 
     @AfterMethod
-    public synchronized void afterMethod(ITestResult result) {
-//       if (result.getStatus() == ITestResult.FAILURE)
-//            test.get().fail(result.getThrowable());
-//        else if (result.getStatus() == ITestResult.SKIP)
-//            test.get().skip(result.getThrowable());
-//        else
-//            test.get().pass("Test passed");
+    public synchronized void afterMethod(ITestResult result)  throws Exception {
+       if (result.getStatus() == ITestResult.FAILURE){
+            test.get().fail(result.getThrowable());
+            String screenshotPath = ExtentManager.getScreenShot(driver, result.getName());
+            test.get().fail("Test Case Failed Snapshot is below " + test.get().addScreenCaptureFromPath(screenshotPath));
+
+       }
+       else if (result.getStatus() == ITestResult.SKIP){
+            test.get().skip(result.getThrowable());
+            //String screenshotPath = ExtentManager.getScreenShot(driver, result.getName());
+       }
+       else{
+            test.get().pass("Test passed");
+            //String screenshotPath = ExtentManager.getScreenShot(driver, result.getName());
+       }
 
         extent.flush();
         driver.quit();
@@ -101,39 +114,6 @@ public abstract class BaseTest {
         System.out.println(("Finishing test Suite"));
     }
 
-//Extent report manager
-//
-//    public class ReportManager {
-//
-//        private ExtentReports extent;
-//        public ExtentHtmlReporter htmlReporter;
-//
-//        public ExtentReports getInstance(){
-//            if (extent == null) {
-//                System.out.println("i am creating instance again");
-//                createInstance();
-//            }
-//            System.out.println("i am updating instance");
-//            return extent;
-//        }
-//
-//        public  ExtentReports createInstance() {
-//                System.out.println("i am creating instance");
-//                extent = new ExtentReports();
-//                htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/inMDExtentReport.html");
-//                extent.setSystemInfo("Host Name", "inMD stage");
-//                extent.setSystemInfo("Environment", "Stage");
-//                extent.setSystemInfo("User Name", "QA team");
-//                htmlReporter.config().setDocumentTitle("Report file for inMD regression testing ");
-//                // Name of the report
-//                htmlReporter.config().setReportName("reportName");
-//                // Dark Theme
-//                htmlReporter.config().setTheme(Theme.DARK);
-//                extent.attachReporter(htmlReporter);
-//                htmlReporter.setAppendExisting(true);
-//            return extent;
-//        }
-//    }
 
 
     public static class ExtentManager {
@@ -142,29 +122,46 @@ public abstract class BaseTest {
 
         public  ExtentReports getInstance() {
             if (extent == null)
-                createInstance("test-output/extent.html");
+                createInstance("extent.html");
 
             return extent;
         }
 
         public static ExtentReports createInstance(String fileName) {
-            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(fileName);
-            htmlReporter.config().setTestViewChartLocation(ChartLocation.BOTTOM);
-            htmlReporter.config().setChartVisibilityOnOpen(true);
-            htmlReporter.config().setTheme(Theme.STANDARD);
-            htmlReporter.config().setDocumentTitle(fileName);
-            htmlReporter.config().setEncoding("utf-8");
+            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/inMDExtentReport.html");
+            extent = new ExtentReports();
+            extent.setSystemInfo("Host Name", "inMD stage");
+            extent.setSystemInfo("Environment", "Stage");
+            extent.setSystemInfo("User Name", "QA team");
+            htmlReporter.config().setDocumentTitle("Report file for inMD regression testing ");
+            // Name of the report
             htmlReporter.config().setReportName(fileName);
+            // Dark Theme
+            htmlReporter.config().setTheme(Theme.DARK);
+            htmlReporter.config().setChartVisibilityOnOpen(true);
+            htmlReporter.config().setEncoding("utf-8");
 
             extent = new ExtentReports();
             extent.attachReporter(htmlReporter);
 
             return extent;
         }
+
+        //This method is to capture the screenshot and return the path of the screenshot.
+        public static String getScreenShot(WebDriver driver, String screenshotName) throws IOException {
+            String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File source = ts.getScreenshotAs(OutputType.FILE);
+            // after execution, you could see a folder "FailedTestsScreenshots" under src folder
+            String destination = System.getProperty("user.dir") + "/Screenshots/" + screenshotName + dateName + ".png";
+            File finalDestination = new File(destination);
+            FileUtils.copyFile(source, finalDestination);
+            return destination;
+    }
     }
 
 
-    private void makeChromeDriver() {
+    public static void makeChromeDriver() {
         //Create a Chrome driver. All test classes use this.
         if (os.contains("windows")) {
             System.setProperty("webdriver.chrome.driver", Properties.seleniumDriversPath + "chromedriver.exe");
@@ -183,6 +180,5 @@ public abstract class BaseTest {
         System.setProperty("webdriver.gecko.driver", Properties.seleniumDriversPath + "geckodriver.exe");
         driver = new FirefoxDriver();
     }
-
 
 }

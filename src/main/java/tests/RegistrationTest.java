@@ -14,7 +14,7 @@ public class RegistrationTest extends BaseTest{
 
         //*************PAGE INSTANTIATIONS*************
         HomePage homePage = new HomePage(driver);
-        logger = extent.createTest("To verify that you can navigate to registration page successfull");
+        //logger = extent.createTest("To verify that you can navigate to registration page successfull");
          //extent.createTest("To verify that you can navigate to registration page successfull");
         //*************PAGE METHODS********************
         homePage.goToinMD()
@@ -23,16 +23,16 @@ public class RegistrationTest extends BaseTest{
 
     @Test (priority = 1)
     public void StudentRegistration () throws InterruptedException {
-        logger = extent.createTest("To verify that student registration works successfully");
+        //logger = extent.createTest("To verify that student registration works successfully");
         //extent.createTest("To verify that student registration works successfully");
-        logger.createNode("Registration is Successful");
+        //logger.createNode("Registration is Successful");
          RegisterUser("student");
 
     }
 
     @Test (priority = 1)
     public void CompanyRegistration () throws InterruptedException {
-        logger = extent.createTest("To verify that company registration works successfully");
+        //logger = extent.createTest("To verify that company registration works successfully");
        // extent.createTest("To verify that company registration works successfully");
         RegisterUser("company");
     }

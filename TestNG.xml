@@ -7,7 +7,6 @@
             <class name="tests.RegistrationTest"/>
             <class name="tests.ForgotPasswordTest"/>
             <class name="tests.LogoutTest"/>
-
         </classes>
     </test>
 </suite>

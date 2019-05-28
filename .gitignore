@@ -1,5 +1,7 @@
-.idea/
-.target/
+#ignore folders
+idea/
+target/
+Screenshots/
 
 # Compiled class file
 *.class
