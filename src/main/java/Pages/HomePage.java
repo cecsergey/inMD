@@ -20,6 +20,7 @@ public class HomePage extends BasePage{
     private final By usernameBy = By.id("popup-user_name");
     private final By passwordBy = By.id("popup-password");
     private final By loginButtonBy = By.xpath("//button[text()='GO']");
+    private final By forgotPasswordLinkBy = By.cssSelector("a.forgot-link");
 
 
     //*********Page Methods*********
@@ -28,6 +29,13 @@ public class HomePage extends BasePage{
         driver.get(Properties.baseURL);
         return this;
     }
+
+    public ForgotPasswordPage goToForgotPasswordPage() {
+        click(signInButtonBy); // Click on "Sign In" button - will appear sign in dropdown form
+        click(forgotPasswordLinkBy); // Click on "Forgot password" link - will open "Forgot password" page
+        return new ForgotPasswordPage(driver);
+    }
+
 
     public HomePage loginToinMD(String username, String password){
         click(signInButtonBy);

@@ -60,7 +60,7 @@ public class ForgotPasswordTest extends BaseTest{
 
     // Private function which will be used to navigate to "Forgot Password" page from Home page
     private ForgotPasswordPage goToForgotPasswordPage(){
-        ForgotPasswordPage forgotPasswordPage  = new ForgotPasswordPage(driver);
-        return forgotPasswordPage.goToForgotPasswordPage();
+        HomePage homePage = new HomePage(driver).goToinMD();
+        return homePage.goToForgotPasswordPage();
     }
 }
